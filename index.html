@@ -16,7 +16,7 @@
                     <li><a href="#">Организации</a></li>
                     <li><a href="#">Обсуждения</a></li>
                     <li><a href="#">О нас</a></li>
-                    <li class="btn"><a href="#">Войти</a></li>
+                    <li class="btn" id="loginButton"><a href="#">Войти</a></li>
                 </ul>
             </nav>
         </header>
@@ -124,7 +124,33 @@
             </div>
         </div>
     </footer>
-    </div> 
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="modal" id="loginModal">
+        <h2>Вход</h2>
+        <label>Email</label>
+        <input type="email" id="loginEmail" required>
+        <br>
+        <label>Пароль</label>
+        <input type="password" id="loginPassword" required>
+        <br>
+        <button id="loginSubmit">Войти</button>
+        <p>Нет аккаунта? <div class="link" id="toRegister">Зарегистрируйтесь!</div></p>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <h2>Регистрация</h2>
+        <label>Email</label>
+        <input type="email" id="registerEmail" required>
+        <br>
+        <label>Пароль</label>
+        <input type="password" id="registerPassword" required>
+        <br>
+        <button id="registerSubmit">Зарегистрироваться</button>
+        <p>Уже есть аккаунт? <div class="link" id="toLogin">Войдите!</div></p>
+    </div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="js/slick.min.js"></script>
 <script src="js/script.js"></script>

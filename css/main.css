@@ -405,3 +405,87 @@ footer .blocks li, footer .blocks li a {
 footer .blocks li a:hover {
     color: #1F1534;
 }
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 4;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 80px 70px 20px 70px;
+    border-radius: 24px;
+    z-index: 5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal.active, 
+.overlay.active {
+    display: block;
+}
+
+.modal h2 {
+    margin: 0 0 35px;
+    text-align: center;
+    color: #1F1534;
+}
+
+.modal label {
+    margin-top: 16px;
+    color: #7D7987;
+    display: flex;
+}
+
+.modal input {
+    margin: 10px;
+    width: 85%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #7D7987;
+    border-radius: 25px;
+    outline: none;
+}
+
+.modal button {
+    margin: 36px 80px;
+    background-color: #7D7987;
+    box-shadow: 3px 3px 5px #cccccc;
+    font-size: 16px;
+    color: #ffff;
+    border: none;
+    padding: 12px 21px;
+    border-radius: 30px;
+    transition: all 700ms;
+}
+
+.modal button:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 50px 1px #7D7987
+}
+
+.modal p {
+    text-align: center;
+    margin-top: 40px;
+    color: #7D7987;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.modal .link {
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 300;
+    color: #458FF6;
+}
