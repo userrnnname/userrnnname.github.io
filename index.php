@@ -1,3 +1,46 @@
+<?php
+require_once('config.php');
+
+session_start();
+
+if(isset($_POST['create'])){
+    $email = $_POST['email'];
+    $password = $_POST['pass'];
+
+    $sql = "INSERT INTO form (email, pass) VALUES (?, ?)";
+    $stmtinsert = $db->prepare($sql);
+    
+    $result = $stmtinsert->execute([$email, $password]);
+    if ($result){
+        echo '<script>alert("Успешная регистрация!");</script>';
+    } else {
+        echo '<script>alert("Произошла ошибка при сохранении");</script>';
+    }
+}
+
+if(isset($_POST['login'])) {
+    $email = $_POST['loginEmail'];
+    $password = $_POST['loginPassword'];
+
+    $sql = "SELECT pass FROM form WHERE email = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$email]);
+    
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($password === $row['pass']) {
+            $_SESSION['user_email'] = $email;
+            echo '<script>alert("Успешный вход!");</script>';
+        } else {
+            echo '<script>alert("Неверный пароль");</script>';
+        }
+    } else {
+        echo '<script>alert("Пользователь не найден");</script>';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,31 +169,32 @@
     </footer>
     </div>
     <div class="overlay" id="overlay"></div>
-
-    <div class="modal" id="loginModal">
-        <h2>Вход</h2>
-        <label>Email</label>
-        <input type="email" id="loginEmail" required>
-        <br>
-        <label>Пароль</label>
-        <input type="password" id="loginPassword" required>
-        <br>
-        <button id="loginSubmit">Войти</button>
-        <p>Нет аккаунта? <div class="link" id="toRegister">Зарегистрируйтесь!</div></p>
-    </div>
-
-    <div class="modal" id="registerModal">
-        <h2>Регистрация</h2>
-        <label>Email</label>
-        <input type="email" id="registerEmail" required>
-        <br>
-        <label>Пароль</label>
-        <input type="password" id="registerPassword" required>
-        <br>
-        <button id="registerSubmit">Зарегистрироваться</button>
-        <p>Уже есть аккаунт? <div class="link" id="toLogin">Войдите!</div></p>
-    </div>
-
+    <form method="POST">
+        <div class="modal" id="loginModal">
+            <h2>Вход</h2>
+            <label>Email</label>
+            <input type="email" name="loginEmail" required>
+            <br>
+            <label>Пароль</label>
+            <input type="password" name="loginPassword" required>
+            <br>
+            <button id="loginSubmit" name="login">Войти</button>
+            <p>Нет аккаунта? <div class="link" id="toRegister">Зарегистрируйтесь!</div></p>
+        </div>
+    </form>
+    <form method="POST">
+        <div class="modal" id="registerModal" method="POST">
+            <h2>Регистрация</h2>
+            <label>Email</label>
+            <input type="email" id="registerEmail" name="email" required>
+            <br>
+            <label>Пароль</label>
+            <input type="password" id="registerPassword" name="pass" required>
+            <br>
+            <button type="submit" name="create" id="registerSubmit">Зарегистрироваться</button>
+            <p>Уже есть аккаунт? <div class="link" id="toLogin">Войдите!</div></p>
+        </div>
+    </form>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="js/slick.min.js"></script>
 <script src="js/script.js"></script>
